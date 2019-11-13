@@ -1,0 +1,81 @@
+{extend name="base" /}
+{block name="content"}
+<form class="layui-form" method="post" autocomplete="off" id="form" lay-filter="form">
+    <div class="layui-col-md3 layui-col-sm5 layui-col-xs12 user_right">
+        <div class="layui-form-item">
+            <table class="layui-table" lay-skin="line">
+                <tr>
+                    <td colspan="2" style="padding: 0;">
+                        <p style="text-align: center;">
+                            <img src="{$loginInfo.head_img}" class="layui-circle" data-src="{$loginInfo.head_img}" onclick="showBigImg(this)">
+                            <input type="file" name="head_img" class="layui-hide" onchange="chooseImageChange(this)">
+                            <a href="javascript:void(0)" style="color: #337ab7;display: block;" onclick="$(this).prev().click()">修改头像</a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">登录账号：</td>
+                    <td align="right">{$loginInfo.account}</td>
+                </tr>
+                <tr>
+                    <td align="left">所属角色：</td>
+                    <td align="right">{$loginInfo.role_name}</td>
+                </tr>
+                <tr>
+                    <td align="left">创建时间：</td>
+                    <td align="right">{$loginInfo.create_time|substr=0,10}</td>
+                </tr>
+                <tr>
+                    <td align="left">登录IP：</td>
+                    <td align="right">{$loginInfo.login_ip}</td>
+                </tr>
+                <tr>
+                    <td align="left">登录次数：</td>
+                    <td align="right">{$loginInfo.login_num}</td>
+                </tr>
+                <tr>
+                    <td align="left">登录时间：</td>
+                    <td align="right">{$loginInfo.login_time}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="layui-col-md6 layui-col-sm7 layui-col-xs12 magt10">
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" value="{$loginInfo.name}" placeholder="请输入姓名" lay-verify="required" lay-reqText="请输入姓名" lay-verType="tips" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="email" value="{$loginInfo.email}" placeholder="请输入邮箱" lay-verify="email" lay-verType="tips" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号码</label>
+            <div class="layui-input-block">
+                <input type="tel" name="phone" value="{$loginInfo.phone}" placeholder="请输入手机号码" lay-verify="phone" lay-verType="tips" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="0" title="保密"{eq name="$loginInfo.sex" value="0"} checked {/eq}>
+                <input type="radio" name="sex" value="1" title="男"  {eq name="$loginInfo.sex" value="1"} checked {/eq}>
+                <input type="radio" name="sex" value="2" title="女"  {eq name="$loginInfo.sex" value="2"} checked {/eq}>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit">立即提交</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" onclick="closeTabIframe()">关闭</button>
+            </div>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="js"}
+{load href="/static/admin/js/user/person_data.js" /}
+{/block}

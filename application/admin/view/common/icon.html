@@ -1,0 +1,68 @@
+{extend name="base" /}
+{block name="css"}
+<style>
+    .childrenBody{
+        padding: 0;
+    }
+    .layui-tab{
+        margin-top: 0;
+    }
+    .layui-tab-content{
+        height:90vh;
+        padding: 0;
+    }
+    .layui-tab-content .layui-show{
+        height:100%;
+        overflow-y:auto;
+    }
+</style>
+{/block}
+{block name="content"}
+<div class="layui-tab layui-tab-brief" lay-filter="icon">
+    <ul class="layui-tab-title">
+        <li class="layui-this">内置图标<span class="layui-badge internal_length">0</span></li>
+        <li>外部图标<span class="layui-badge exterior_lenght">0</span></li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <ul class="internal icons layui-row"></ul>
+        </div>
+        <div class="layui-tab-item">
+            <ul class="exterior icons layui-row"></ul>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    window.onload = function(){
+        layui.use(['element'],function(){
+            var element = layui.element;
+            $.get('/static/common/layui/css/layui.css',function(res){
+                var iconHtml = '';
+                for(var i=1;i<res.split(".layui-icon-").length;i++){
+                    if(res.split(".layui-icon-")[i].split(":before").length <= 2){
+                        iconHtml += "<li class='layui-col-xs4 layui-col-sm3 layui-col-md2 layui-col-lg1'>"+
+                            "<i class='layui-icon layui-icon-" + res.split(".layui-icon-")[i].split(":before")[0] + "'></i>" + "layui-icon-" + res.split('.layui-icon-')[i].split(':before')[0] +
+                            "</li>";
+                        internal_length = i;
+                    }
+                }
+                $(".internal").html(iconHtml);
+                $(".internal_length").text(internal_length);
+            });
+            $.get('https://at.alicdn.com/t/font_400842_q6tk84n9ywvu0udi.css',function(res){
+                var iconHtml = '';
+                for(var i=1;i<res.split(".icon-").length;i++){
+                    iconHtml += "<li class='layui-col-xs4 layui-col-sm3 layui-col-md2 layui-col-lg1'>"+
+                        "<i class='seraph icon-" + res.split(".icon-")[i].split(":before")[0] + "'></i>" +
+                        "icon-" + res.split('.icon-')[i].split(':before')[0] +
+                        "</li>";
+                }
+                $(".exterior").html(iconHtml);
+                $(".exterior_lenght").text(res.split(".icon-").length-1);
+            })
+        })
+    }
+</script>
+{/block}

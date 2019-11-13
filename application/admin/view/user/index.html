@@ -1,0 +1,52 @@
+{extend name="base" /}
+{block name="content"}
+<blockquote class="layui-elem-quote quoteBox">
+    <form class="layui-form layui-row layui-col-space3">
+        <div class="layui-col-md2 layui-col-sm3 layui-col-xs12">
+            <input type="text" class="layui-input" name="name,account" placeholder="姓名 / 登录账号" autocomplete="off">
+        </div>
+        <div class="layui-col-md2 layui-col-sm3 layui-col-xs6">
+            <select name="role_id">
+                <option value="">所属角色</option>
+                {volist name="$role" id="vo"}
+                <option value="{$vo.id}">{$vo.name}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="layui-col-md2 layui-col-sm3 layui-col-xs6">
+            <select name="status">
+                <option value="">状态</option>
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
+            </select>
+        </div>
+        <div class="layui-col-md2 layui-col-sm3 layui-col-xs12 magt5">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm" lay-submit lay-filter="search">查询</button>
+                <button type="button" class="layui-btn layui-btn-sm" id="add-btn">添加用户</button>
+            </div>
+        </div>
+    </form>
+</blockquote>
+<table id="tableList" lay-filter="tableList"></table>
+<script type="text/html" id="tableListBar">
+    {neq name="$loginInfo.id" value="10000"}
+    {{# if(d.id != 10000){ }}
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="resetPassword">重置</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+    {{# } }}
+    {else}
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="resetPassword">重置</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    {{# if(d.id !== 10000){ }}
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+    {{# }else{ }}
+    <a class="layui-btn layui-btn-xs layui-btn-disabled">删除</a>
+    {{# } }}
+    {/neq}
+</script>
+{/block}
+{block name="js"}
+{load href="/static/admin/js/user/index.js" /}
+{/block}

@@ -1,0 +1,39 @@
+{extend name="base" /}
+{block name="content"}
+<form class="layui-form layui-col-md7 layui-col-sm9 layui-col-xs12" style="margin: 0 auto;float:none;" method="post" autocomplete="off" id="form" lay-filter="form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" class="layui-input" placeholder="请输入角色名称" lay-verify="required">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色状态</label>
+        <div class="layui-input-block">
+            <input type="radio" name="status" value="1" title="正常" checked>
+            <input type="radio" name="status" value="0" title="禁用">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色备注</label>
+        <div class="layui-input-block">
+            <textarea name="remark" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色权限</label>
+        <div class="layui-input-block">
+            <div id="role-permission"></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit">立即提交</button>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" onclick="closeFrame()">关闭</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="js"}
+{load href="/static/admin/js/role/form.js" /}
+{/block}
